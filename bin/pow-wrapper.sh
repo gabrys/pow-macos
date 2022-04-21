@@ -22,7 +22,7 @@ if [ "$os" = "" ]; then
   die "Unsupported OS/CPU. Only x86_64 Linux, Intel Macs, and M1 Macs are supported by this wrapper"
 fi
 
-readlink_f() {
+abspath() {
   (
     local script_dir="$(dirname "$1")"
     local target_file="$(readlink "$1")"
@@ -34,12 +34,13 @@ readlink_f() {
 
     local abs_target="$(pwd -P)/$(basename "$target_file")"
     if [ "$recursion" -lt 10 ] && [ -L "$abs_target" ]; then
-      readlink_f "$abs_target" "$recursion"
+      abspath "$abs_target" "$recursion"
     else
       echo "$abs_target"
     fi
   )
 }
 
-pow_dir="$(dirname "$(readlink_f "$0")")"
-exec "$pow_dir/../$os/pow-runner" "$pow_dir/../src/pow.py" "$@"
+pow_bindir="$(dirname "$(abspath "$0")")"
+pow_dir="$(dirname "$pow_bindir")"
+exec "$pow_dir/$os/pow-runner" "$pow_dir/src/pow.py" "$@"
