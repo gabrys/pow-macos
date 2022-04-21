@@ -1,0 +1,14 @@
+{
+  "name": "pow-macos",
+  "version": "1.0.0",
+  "description": "Pow is a CLI tool to run useful commands easily configurable via Pow files.",
+  "main": "index.js",
+  "repository": "git@github.com:gabrys/pow-macos.git",
+  "author": "Piotr Gabryjeluk <piotr.gabryjeluk@shortlist.co>",
+  "license": "MIT",
+  "bin": {
+    "pow": "bin/pow-wrapper.sh"
+  },
+  "cpu": ["x64", "arm64"],
+  "os": [ "linux", "darwin" ]
+}
